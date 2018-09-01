@@ -1,5 +1,5 @@
 ---
-published: false
+published: true
 ---
 ## Thoughts on the AWS Solutions Architect exam
 
