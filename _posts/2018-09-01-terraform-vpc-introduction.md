@@ -1,5 +1,5 @@
 ---
-published: false
+published: true
 ---
 ## Learning AWS VPC essentials using Terraform
 
