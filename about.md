@@ -1,7 +1,7 @@
 ---
 layout: post
 title: About
-author: Chester
+author: Pete
 permalink: /about/
 published: true
 ---
