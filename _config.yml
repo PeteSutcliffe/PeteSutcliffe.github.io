@@ -1,14 +1,14 @@
 # Site settings
-title:          Tale
-description:    "Minimal Jekyll theme for storytellers"
+title:          Finding solutions
+description:    "Solution architecture"
 baseurl:        "/"
 url:            "https://petesutcliffe.github.io"
 
 # Author
 author:
-  name:         Chester How
-  url:          https://chester.how
-  email:        chesterhow@gmail.com
+  name:         Pete Sutcliffe
+  url:          https://pdsutcliffe.co.uk
+  email:        
 
 # Build settings
 markdown:       kramdown
