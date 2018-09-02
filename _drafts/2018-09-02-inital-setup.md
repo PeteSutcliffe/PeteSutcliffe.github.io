@@ -8,6 +8,5 @@ Mention:
 Visual Studio Code (extension)
 Terraform init needed
 Secret keys / aws cli
-Terraform syntax
+Terraform syntax - plan / apply / destroy
 CIDR blocks
-
