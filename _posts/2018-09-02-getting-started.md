@@ -62,7 +62,7 @@ vpc_id = vpc-07568f4db01a18aaf
 
 Go check in the AWS console and you should be able to find the VPC listed in the correct region:
 
-![vpc_id.PNG]({{site.baseurl}}/_drafts/vpc_id.PNG)
+![vpc_id.PNG]({{site.baseurl}}/images/vpc_id.PNG)
 
 Finally, to destroy all resources to reduce costs run `terraform destroy` you'll be prompted to enter "yes" to confirm then everything will be removed. There isn't any cost just for creating a VPC so it's not really necessary at this stage but now we're automating our infrastructure we can easily recreate everything when we need it so there's no point getting too attached to things.
 
