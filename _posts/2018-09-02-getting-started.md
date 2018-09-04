@@ -28,10 +28,10 @@ resource "aws_vpc" "vpc" {
   }
 }
 ```
-Terraform uses HCL, or Hashicorp Configuration Language for it's definition files (you can also use JSON if you wish), which are quite readable.
+Terraform uses HCL, or Hashicorp Configuration Language for it's definition files, which are quite readable (you can also use JSON if you wish).
 The provider sections tells Terraform that we are going to be working with AWS. First is the region that resources will be created in. I'm using eu-west-1 but feel free to change that to whatever suits. Next up is the access and secret keys that will be used for authentication. As a rule you should never put these in any files that will be checked into source control and Terraform supports alternative ways of supplying these values, which are listed in the Terraform documentation. If you have the AWS CLI installed your can type `AWS configure` at the command line and you'll be prompted to provide your access keys and a region, which will become the defaults for AWS related activity. Terraform will also use these values if present so if you set these up you can remove the values from the provider configuration.
 The next section defines our vpc resource; a resource is anything that will be created as a result of our Terraform operation. The general format for defining resources is `resource resource_type variable_name`. The allowed values for resource type is determined by the type of provider being used. The variable name is like a variable in any programming language, it's name has no effect on the end result but it allows us to refer to this resource in other places, as we'll see.
-We set some options for our VPC (see the post about Cidr blocks for more explanation on this topic) and add a tag (most resources allow tags to be added).
+We set some options for our VPC (see [this post](http://pdsutcliffe.co.uk/2018-09-03/cidr-blocks) about Cidr blocks for more explanation on this topic) and add a tag (most resources allow tags to be added).
 
 The first time we work with a terraform configuration, we need to initialize our work space by running `terraform init` from the commandline, which will download the appropriate plugins for the configuration we're using. Once that's done `terraform plan` will show us what Terraform will do when we apply our configuration. In this case we should see a list of details followed by
 
