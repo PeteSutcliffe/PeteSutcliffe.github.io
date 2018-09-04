@@ -9,7 +9,7 @@ Firstly create a folder to put your Terraform files in. You can use any text edi
 
 Terraform will automatically process any files with a .tf extension in the directory it's run from allowing us to organize the resources we will create easily. 
 
-Let's create a new file: **vpc.tf**
+Let's create a new file: [**vpc.tf**](https://raw.githubusercontent.com/PeteSutcliffe/aws-vpc-terraform/b7358083734b2c1e236d62025ac980ca7c0d6288/vpc.tf)
 
 ``` HCL
 provider "aws" {
@@ -40,7 +40,7 @@ Plan: 1 to add, 0 to change, 0 to destroy.
 ```
 Terraform will remember the actions that have been applied in a state file and can make updates in an additive manner. Our tf configuration files should always reflect the final state that we desire our resources to be. If we change or remove the resources defined in these files, Terraform will add / modify or remove resources as necessary to achieve the desired state. Pay attention to the output of Terraform plan to ensure you don't get any nasty surprises.
 
-One more thing before we run the plan: it's often useful to get feedback on the resources that Terraform has created such as ip addresses of servers or DNS names of load balancers. Let's ask Terraform to tell us the id of the VPC it creates. Add a new file **outputs.tf** with contents
+One more thing before we run the plan: it's often useful to get feedback on the resources that Terraform has created such as ip addresses of servers or DNS names of load balancers. Let's ask Terraform to tell us the id of the VPC it creates. Add a new file [**outputs.tf**](https://raw.githubusercontent.com/PeteSutcliffe/aws-vpc-terraform/b7358083734b2c1e236d62025ac980ca7c0d6288/outputs.tf) with contents
 
 ``` HCL
 output "vpc_id" {
