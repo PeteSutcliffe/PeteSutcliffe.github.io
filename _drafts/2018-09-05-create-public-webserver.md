@@ -111,7 +111,7 @@ resource "aws_security_group" "demo_sg" {
 
 ```
 We define 2 ingress rules that say http (port 80) and ssh (port 22) from any source ip should be able to reach the instance. The egress rule says that all outgoing traffic is allowed.
-Note that we don't need a Network Access Control List (NACL) because a subnet is implicitly associated with a default NACL that allows all traffic/ I'll have more to say about security groups and NACLs in a future post.
+Note that we don't need a Network Access Control List (NACL) because a subnet is implicitly associated with a default NACL that allows all traffic. I'll have more to say about security groups and NACLs in a future post.
 
 Now we can finally define our instance:
 
