@@ -1,5 +1,5 @@
 ---
-published: false
+published: true
 ---
 ## Creating our first public web server
 
