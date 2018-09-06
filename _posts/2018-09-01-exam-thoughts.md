@@ -1,8 +1,7 @@
 ---
 published: true
+title: Thoughts on the AWS Solutions Architect exam
 ---
-## Thoughts on the AWS Solutions Architect exam
-
 I've taken a few Microsoft exams in my career and always been disappointed by them, particularly the programming focussed ones which have often contained glaring errors and ridiculous questions designed to trip you up rather than give you an opportunity to demonstrate what you know.
 
 Happily this AWS exam was a big improvement on those. None of the questions felt unfair or poorly written and in most cases there was a fairly unambiguous right answer.
