@@ -1,8 +1,7 @@
 ---
 published: true
+title: Getting started with Terraform
 ---
-## Getting started with Terraform
-
 Let's make a start and create our VPC. First let's look at the basic of working with Terraform. I'd encourage you to work through the [getting started](https://www.terraform.io/intro/getting-started/install.html) guide on the Terraform site for more detailed guidance.
 
 Firstly create a folder to put your Terraform files in. You can use any text editor to work with Terraform files but choosing one with specialist support will make life easier. I use [Visual Studio Code](https://code.visualstudio.com/), which has a Terraform plugin that will do autocomplete, reformatting, linting and other useful tricks.
