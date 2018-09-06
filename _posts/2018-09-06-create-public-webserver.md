@@ -1,8 +1,7 @@
 ---
 published: true
+title: Creating our first public web server
 ---
-## Creating our first public web server
-
 We've created a VPC, let's put something in it to play with. In this post we'll create an EC2 instance, log onto it with SSH, install Apache and serve a simple web page from it.
 
 To accomplish this we'll need to add the following to our VPC:
