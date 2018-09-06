@@ -131,7 +131,7 @@ resource "aws_instance" "server" {
 
 ```
 
-The ami I've specified is for an AWS Linux 2 instance, note that amis are region-specific so you might need to change this. We add the security group to our instance using the vpc_security_group_ids property. Note that this is an array so multiple groups could be associated.
+The ami I've specified is for an AWS Linux 2 instance, note that amis are region-specific so you might need to change this. We add the security group to our instance using the vpc_security_group_ids property. Note that this is an array so multiple groups could be associated. Set the key name to the one created in the first step.
 
 We're putting the instance in our public subnet so it should get a public ip address by default. This will be useful to know so let's add it to outputs.tf:
 
@@ -142,3 +142,32 @@ output "server_ip" {
 }
 
 ```
+
+OK, let's spin it up! First run a `terraform plan` to check everything looks good then `terraform apply` to create it. If all goes well then you should get the ip addres of your new server as an output.
+
+```
+Apply complete! Resources: 7 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+server_ip = 34.240.172.101
+vpc_id = vpc-023c619f5d94a23d4
+```
+
+Let's use that ip to ssh onto our server:
+`ssh -i pete-eu-west-1.pem ec2-user@34.240.172.101`
+Substituting the name of your key and the ip of your server.
+
+Now let's install Apache and setup a simple web page. Enter the following commands.
+
+```
+sudo yum install httpd -y
+sudo service httpd start
+sudo sh -c "echo 'Hello World!' > /var/www/html/index.html"
+```
+
+Now open up your web browser and enter the server ip into the address bar. Hopefully you should see your "Hello world!" message.
+
+And with that we're done. OK, that was a lot of work just to display a simple hello world message but we now have a solid base on which to build.
+
+Next time we'll automate the installation of the web server and creation of the web page. Don't forget to `terraform destroy` your infrastructure if you are not going to use it for a while.
