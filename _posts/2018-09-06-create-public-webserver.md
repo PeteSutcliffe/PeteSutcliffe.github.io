@@ -13,7 +13,7 @@ To accomplish this we'll need to add the following to our VPC:
 
 This is what we're going to build.
 
-![VPC]({{site.baseurl}}//images/first_single_server.png)
+![VPC]({{site.baseurl}}/images/first_single_server.png)
 
 For the key pair, if you already have one in AWS then you can reuse that, otherwise in the Console go to EC2 -> Key Pairs, create a new one and download it. Remember that key pairs are region specific so you'll need to create it in the same region you want to create your infrastructure. Windows users, check out this post on [using ssh in Window](http://pdsutcliffe.co.uk/2018-09-04/ssh-on-windows) if you are unfamiliar with using ssh.
 
