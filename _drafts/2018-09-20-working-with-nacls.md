@@ -18,3 +18,36 @@ It's good practice to increase your rules numbers in incremements of 100s so you
 
 A note about the default NACL that is created with the VPC: it has a rule added for both ingress and egress that allows all traffic. This is the reason that we were able to access our instances even though we hadn't created any rules. If you create a new NACL though this rule is not added so the default behaviour of a custom NACL is to deny everything.
 
+Now we understand that theory, let's have a play. Create a new file nacl.tf and add the following:
+
+``` HCL
+resource "aws_network_acl" "main" {
+  vpc_id = "${aws_vpc.vpc.id}"
+
+  egress {
+    protocol   = "all"
+    rule_no    = 100
+    action     = "allow"
+    cidr_block = "0.0.0.0/0"
+    from_port  = 0
+    to_port    = 0
+  }
+
+  ingress {
+    protocol   = "all"
+    rule_no    = 100
+    action     = "allow"
+    cidr_block = "0.0.0.0/0"
+    from_port  = 0
+    to_port    = 0
+  }
+
+  subnet_ids = ["${aws_subnet.public_subnet_a.id}"]
+
+  tags {
+    Name = "demo"
+  }
+}
+```
+
+
