@@ -49,5 +49,8 @@ resource "aws_network_acl" "main" {
   }
 }
 ```
-
+We set up ingress and egress rules that allows all traffic to start with.
+Apply the new infrastructure and confirm you can still access the index page using the server ip address.
+Let's make things more restrictive by just allowing http traffic. Change the ingress rule to protocol "tcp" from_port and to_port to 80 then apply again and verify the index page is still accessible.
+Now do the same thing for the egress and apply again. Try the index page again and... what's going on? The page is now inaccessible.
 
