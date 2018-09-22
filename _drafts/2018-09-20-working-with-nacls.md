@@ -52,5 +52,36 @@ resource "aws_network_acl" "main" {
 We set up ingress and egress rules that allows all traffic to start with.
 Apply the new infrastructure and confirm you can still access the index page using the server ip address.
 Let's make things more restrictive by just allowing http traffic. Change the ingress rule to protocol "tcp" from_port and to_port to 80 then apply again and verify the index page is still accessible.
-Now do the same thing for the egress and apply again. Try the index page again and... what's going on? The page is now inaccessible.
+Now do the same thing for the egress and apply again. Try the index page again and... the page is inaccessible, what happened? If you were to enable VPC flow logs and look at the denied traffic you'd see requests coming from your ip to the server but they don't come from port 80, they come from an [ephemeral port](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-network-acls.html#nacl-ephemeral-ports). When your PC makes a request to a web site, it chooses a port for the request to come back on. This makes sense if you think about it, if your PC is a web server itself and a request comes back in on port 80, it would try to handle it as an inbound web request. 
+In order to allow our subnet to reply to incoming requests we need to open the full range of possible ports requesting clients might use: 1024-65535. Let's change our egress rule to from_port 1024 and to_port 65535. Access should now be restored.
+
+That's serving inbound requests dealt with, how about making outbound ones? Try outbound.php, it's probably no suprise that this isn't working currently. There are 2 things we need to do to fix it, based on our experience with the incoming requests can you work out what they are?
+The first is obvious, we aren't allowing outbound traffic on port 80 so our http request isn't allowed out of the subnet, we can fix this with a new rule:
+
+``` HCL
+egress {
+    protocol   = "tcp"
+    rule_no    = 200
+    action     = "allow"
+    cidr_block = "0.0.0.0/0"
+    from_port  = 80
+    to_port    = 80
+  }
+```
+This allows traffic to reach the external server but isn't sufficient by itself, we also need to let the reply back in, which will be coming back on, you guessed it, an ephemeral port. According to the documentation linked above, Amazon Linux uses ports 32768-61000 so let's add a new ingress rule:
+``` HCL
+ingress {
+    protocol   = "tcp"
+    rule_no    = 200
+    action     = "allow"
+    cidr_block = "0.0.0.0/0"
+    from_port  = 32768
+    to_port    = 61000
+  }
+```
+This should see outbound.php working again.
+
+So that's network access control lists, what a pain. You might be wondering why we didn't have to bother with ephemeral ports when setting up security groups; this comes back to security groups being stateful and NACLs being stateless. If an inbound or outbound request is allowed by the relevant ingress or egress rules in a security group, the return traffic is allowed as well, regardless of ports. This isn't the case for NACLs where ingress and egress rules have to be explicitly set. This is important to remember for the exam; you might be given a scenario and asked to choose the correct answer from security groups or NACLs with similar looking rules, you need to take into account the different behaviours of the 2 to work out the correct answer.
+
+Next time we'll look at adding a bit of sophistication to our setup with a load balancer.
 
