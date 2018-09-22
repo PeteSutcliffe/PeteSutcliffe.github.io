@@ -18,7 +18,7 @@ It's good practice to increase your rules numbers in incremements of 100s so you
 
 A note about the default NACL that is created with the VPC: it has a rule added for both ingress and egress that allows all traffic. This is the reason that we were able to access our instances even though we hadn't created any rules. If you create a new NACL though this rule is not added so the default behaviour of a custom NACL is to deny everything.
 
-Now we understand that theory, let's have a play. Create a new file nacl.tf and add the following:
+Now we understand that theory, let's have a play. Create a new file [nacl.tf](https://raw.githubusercontent.com/PeteSutcliffe/aws-vpc-terraform/787433b6036550cfafc8fb9a9b46892fa620f105/nacl.tf) and add the following:
 
 ``` HCL
 resource "aws_network_acl" "main" {
