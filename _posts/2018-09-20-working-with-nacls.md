@@ -1,5 +1,5 @@
 ---
-published: false
+published: true
 title: Network Access Control Lists (NACLs)
 ---
 Let's move on to NACLs. These are superficially similar to security groups but there are some key differences you need to be aware of for the exam.
