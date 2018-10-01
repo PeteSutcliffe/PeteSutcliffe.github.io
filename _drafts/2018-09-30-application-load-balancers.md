@@ -101,4 +101,22 @@ resource "aws_lb_listener" "alb_listener" {
   }
 }
 ```
-We'll listen to requests over http on port 80. We just need a default rule, which is to forward all requests to our target group. 
+We'll listen to requests over http on port 80. We just need a default rule, which is to forward all requests to our target group. If we needed to setup more complex rules, such as path-based routing we could do so by adding `aws_lb_listener_rule` resources.
+This is all we need to get everything up and running but to make life a bit easier we'll make 2 more changes. Firstly add ingress and egress rules to the NACL rules so we can SSH onto our servers, secondly let's add the 2nd server's ip and the loadbalancer dns to the outputs:
+
+``` HCL
+output "server2_ip" {
+  value = "${aws_instance.server2.public_ip}"
+}
+
+output "alb_dns" {
+  value = "${aws_lb.demo.dns_name}"
+}
+```
+
+Apply the changes and all being well you should get 2 server outputs and a dns address in the output. Take each ip and paste them into the browser address bar and you should get 2 different instance ids in the output. Do the same with the dns address and you should get alternating instance ids as you refresh the page (depending on the browser this might not work as we didn't specify any cache behaviour for the page so some may choose to cache the result, a tool such as Postman should give the expected output).
+
+So let's experiment a bit. SSH onto one of the servers and go to where our pages are stored: `cd /var/www/html` now rename the index file: `sudo mv index.html index.bak`. Now try refreshing the browser with the alb dns address. Notice that half the requests give an error page, this won't fix itself as only the healthcheck page will affect server availability. Put the index page back: `sudo mv index.bak index.html`. Now rename the healthcheck page: `sudo mv healthcheck.html healthcheck.bak`. After a few seconds the alb dns will stop returning results from this server, however the page can still be reached by using the server's ip address directly. Load balancer healthchecks will not terminate unhealthy instances, nor start new ones in their place, they simply stop serving traffic to them. Put the healthcheck file back `sudo mv healthcheck.bak healthcheck.html` and after a few seconds the server will start getting requests from the load balancer again.
+
+We've made our infrastructure a bit more robust but there's still a lot of improvements we can make. Next time we'll look at serving our web traffic from private instances through a NAT gateway.
+
