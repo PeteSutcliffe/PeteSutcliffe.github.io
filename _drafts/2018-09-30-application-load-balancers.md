@@ -87,3 +87,18 @@ resource "aws_alb_target_group_attachment" "server2_attachment" {
   port             = 80
 }
 ```
+We'll forward traffic to our instances on port 80 over http. A health check is configured that is set to succeed and fail quickly. It will ping our healthcheck.html endpoint every 5 seconds and mark the instance as healthy if it returns 200 twice and will mark it as unhealthy and remove it from service if it fails twice. Each server is added to the target group individually.
+Lastly we need to set up a listener:
+``` HCL
+resource "aws_lb_listener" "alb_listener" {
+  load_balancer_arn = "${aws_lb.demo.arn}"
+  port              = "80"
+  protocol          = "HTTP"
+
+  default_action {
+    target_group_arn = "${aws_lb_target_group.demo.arn}"
+    type             = "forward"
+  }
+}
+```
+We'll listen to requests over http on port 80. We just need a default rule, which is to forward all requests to our target group. 
