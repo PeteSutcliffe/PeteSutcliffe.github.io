@@ -1,5 +1,5 @@
 ---
-published: false
+published: true
 title: Application load balancers
 ---
 Let's start to make our infrastructure a bit more robust. We'll start simple by adding an extra server in a different availability zone and putting a load balancer in front of them. This will bring us 2 benefits: if a calamity befalls the data centre of one our servers is in, our application will still be reachable through the server in the other one, also our capacity to serve traffic will increase as we have an extra server.
